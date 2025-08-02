@@ -22,7 +22,7 @@ namespace Real_Time_Chat.Http.Routes
                     var message = new MessageModel()
                     {
                         Id = Guid.NewGuid(),
-                        UserId = req.UserId,
+                        UserName = req.UserName,
                         Content = req.Content,
                         SendedAt = DateTime.UtcNow
                     };

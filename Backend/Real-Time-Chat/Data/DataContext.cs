@@ -13,7 +13,9 @@ namespace Real_Time_Chat.Data
         {
 
         }
-        
+
+        public DbSet<UserModel> User { get; set; }
         public DbSet<MessageModel> Message { get; set; }
+        
     }
 }

@@ -5,13 +5,9 @@ using System.Threading.Tasks;
 
 namespace Real_Time_Chat.Models
 {
-    public class MessageModel
+    public class UserModel
     {
         public Guid Id { get; init; }
-        public Guid UserId { get; set; }
         public required string UserName { get; set; }
-        public string? Content { get; set; }
-        public DateTime SendedAt { get; init; }
-        public DateTime? EditedAt { get; init; }
     }
 }
