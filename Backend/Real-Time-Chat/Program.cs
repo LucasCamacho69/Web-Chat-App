@@ -20,4 +20,5 @@ app.UseHttpsRedirection();
 
 app.MapGet("/", () => "Hello World!");
 app.MessagesRoute();
+app.UserRoute();
 app.Run();

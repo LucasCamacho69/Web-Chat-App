@@ -39,7 +39,7 @@ namespace Real_Time_Chat.Http.Routes
             });
 
             //HTTP GET
-            route.MapGet("All-Messages", async (DataContext context) =>
+            route.MapGet("messages", async (DataContext context) =>
             {
                 try
                 {
@@ -51,6 +51,62 @@ namespace Real_Time_Chat.Http.Routes
                     }
 
                     return Results.Ok(All_Messages);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(ex.Message);
+                }
+            });
+            //HTTP GET BY ID
+            route.MapGet("messages/{id:guid}", async (Guid id, DataContext context) =>
+            {
+                try
+                {
+                    var message = await context.Message.FirstOrDefaultAsync(x => x.Id == id);
+
+                    if (message == null) return Results.NotFound();
+
+                    return Results.Ok(message);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(ex.Message);
+                }
+            });
+            
+            //HTTP PUT
+            route.MapPut("edit/{id:guid}", async (Guid id, MessageModel req, DataContext context) =>
+            {
+                try
+                {
+                    var message = await context.Message.FirstOrDefaultAsync(x => x.Id == id);
+
+                    if (message == null) return Results.NotFound();
+
+                    message.ChangeMessage(req.Content);
+                    await context.SaveChangesAsync();
+
+                    return Results.Ok();
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(ex.Message);
+                }
+            });
+
+            //HTTP REMOVE
+            route.MapDelete("remove/{id:guid}", async (Guid id, DataContext context) =>
+            {
+                try
+                {
+                    var message = await context.Message.FirstOrDefaultAsync(x => x.Id == id);
+
+                    if (message == null) return Results.NotFound();
+
+                    context.Remove(message);
+                    await context.SaveChangesAsync();
+
+                    return Results.Ok();
                 }
                 catch (Exception ex)
                 {

@@ -9,9 +9,15 @@ namespace Real_Time_Chat.Models
     {
         public Guid Id { get; init; }
         public Guid UserId { get; set; }
-        public required string UserName { get; set; }
-        public string? Content { get; set; }
+        public string? UserName { get; set; }
+        public string? Content { get; set; } 
         public DateTime SendedAt { get; init; }
         public DateTime? EditedAt { get; init; }
+
+
+        public void ChangeMessage(string message)
+        {
+            Content = message;
+        }
     }
 }
